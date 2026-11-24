@@ -1,65 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import Tekst from '../components/Tekst.astro';
 ---
-<Base title="O nama" description="Kako je jedna rođendanska ploča postala udruga i liga: priča o Crokinole Hrvatska.">
-  <PageHead
-    label="Udruga"
-    title="O nama"
-    lead="Sve je počelo jednom pločom, jednim rođendanom i jednom krivom procjenom."
-  />
+<Base title="O nama">
+  <PageHead label="Udruga" title="O nama" />
   <div class="container page-body">
     <div class="story">
       <blockquote>
-        <p>„To nitko neće htjeti igrati.“</p>
-        <cite>— gotovo svi, kad je stigla prva ploča</cite>
+        <p><Tekst inline opis="Citat ili rečenica koja sažima priču" /></p>
+        <cite><Tekst inline opis="Tko je to rekao / kontekst" /></cite>
       </blockquote>
 
       <div class="prose">
         <h2>Kako je počelo</h2>
-        <p>
-          Prva crokinole ploča stigla je kao poklon za 31. rođendan — gotovo na nagovor, uz dosta sumnje.
-          Okrugla drvena ploča, hrpa diskova i pravila koja stanu na salvetu. „Lijepo izgleda,
-          ali to nitko neće htjeti igrati“, govorilo se.
-        </p>
-        <p>
-          Nije prošlo dugo, a ploča je izlazila na svakom druženju. Partija za zagrijavanje pretvorila se
-          u „još samo jednu“, a „još samo jedna“ u turnir do ponoći.
-        </p>
-        <p>
-          Onda je i jedan poznanik za rođendan dobio ploču. Dvije ploče znače dva stola, dva stola znače
-          pravi turnir — i tu se rodila ideja: osnovati udrugu i pokrenuti službenu ligu.
-          I eto nas tu.
-        </p>
+        <Tekst opis="Priča o nastanku: prva ploča, druženja, druga ploča, ideja o udruzi i ligi (2–3 odlomka). Ton: prijateljski, bez imena." redova={8} />
       </div>
     </div>
 
     <div class="prose">
       <h2>Što je crokinole?</h2>
-      <p>
-        Crokinole je društvena igra spretnosti iz Kanade, stara više od 150 godina. Igra se na okrugloj drvenoj ploči:
-        prstom odapinješ drvene diskove prema središtu, skupljaš bodove i izbacuješ protivnikove diskove s ploče.
-        Pravila naučiš u pet minuta, a igru učiš cijeli život. Pogledaj <a href="/pravila/">kako se igra</a>.
-      </p>
+      <Tekst opis="Kratko o igri za nekoga tko je nikad nije vidio (3–4 rečenice), poveznica na Pravila igre" redova={4} />
 
       <h2>Što radimo</h2>
-      <ul>
-        <li>vodimo tjednu ligu i organiziramo turnire za pojedince i parove;</li>
-        <li>uvodimo nove igrače u igru — ploče i diskove imamo, ti samo dođi;</li>
-        <li>igramo po službenim pravilima međunarodne zajednice (NCA), da se naši igrači mogu natjecati i vani;</li>
-        <li>skupljamo sve koji u Hrvatskoj imaju ploču u ormaru i traže s kim igrati.</li>
-      </ul>
+      <Tekst opis="Ciljevi i aktivnosti udruge (popis od 3–5 stavki)" redova={4} />
 
       <h2>Naš znak</h2>
-      <p>
-        Znak udruge je crokinole ploča gledana odozgo. Gornja polovica je javorova ploča sa zonama i kočićima,
-        donja je šahovnica, a rupa od 20 bodova sjedi točno na liniji gdje se igra i Hrvatska susreću.
-      </p>
+      <Tekst opis="Što znak predstavlja (može se preuzeti iz knjige znaka)" redova={3} />
 
-      <div class="note">
-        <p><strong>Udruga je u osnivanju.</strong> Statut, tijela udruge i podaci o upisu u Registar udruga
-        bit će ovdje objavljeni nakon osnivačke skupštine i upisa.</p>
-      </div>
+      <h2>Udruga</h2>
+      <Tekst opis="Službeni podaci: status osnivanja, statut, tijela udruge" redova={2} />
     </div>
   </div>
 </Base>
@@ -70,13 +40,11 @@ import PageHead from '../components/PageHead.astro';
     align-items: start; margin-bottom: var(--space-8);
   }
   .story .prose h2 { margin-top: 0; }
-  blockquote {
-    margin: 0; background: var(--maple); border-radius: var(--radius-lg);
-    padding: var(--space-8); position: relative;
-  }
+  blockquote { margin: 0; background: var(--maple); border-radius: var(--radius-lg); padding: var(--space-8); }
   blockquote p {
     font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 var(--space-4);
   }
-  blockquote cite { font-style: normal; color: var(--ink); font-size: 15px; }
+  blockquote p :global(.tekst-inline) { color: rgba(43,31,23,.55); }
+  blockquote cite { font-style: normal; font-size: 15px; }
   @media (max-width: 760px) { .story { grid-template-columns: 1fr; gap: var(--space-6); } }
 </style>

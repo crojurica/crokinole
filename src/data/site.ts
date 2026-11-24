@@ -1,7 +1,7 @@
 // Osnovni podaci o udruzi. Kad udruga bude upisana u registar, ovdje dopuniti OIB, adresu i IBAN.
 export const site = {
   naziv: 'Crokinole Hrvatska',
-  opis: 'Udruga za crokinole u Hrvatskoj: liga, turniri, pravila igre i zajednica igrača.',
+  opis: '[Kratki opis udruge, jedna rečenica — prikazuje se u podnožju i tražilicama]', // TODO: tekst
   email: 'info@crokinole.hr', // TODO: potvrditi adresu kad bude postavljena pošta na domeni
   oib: '', // TODO: nakon upisa u Registar udruga
   adresa: '', // TODO: sjedište udruge

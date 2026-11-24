@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import Tekst from '../components/Tekst.astro';
 import { kalendar, formatDatum, vrsteDogadaja } from '../data/kalendar';
 
 const danas = new Date().toISOString().slice(0, 10);
@@ -15,11 +16,8 @@ const vijesti = (await getCollection('vijesti', ({ data }) => !data.skica))
     <div class="container hero-inner">
       <div class="hero-text">
         <p class="label">Udruga u osnivanju</p>
-        <h1 class="display">„To nitko neće htjeti igrati.“</h1>
-        <p class="lead">
-          Tako su rekli kad je stigla prva ploča. Danas je vadimo na svakom druženju,
-          imamo i drugu ploču, a u siječnju kreće liga. Dođi, ploče i diskove imamo.
-        </p>
+        <h1 class="display"><Tekst inline opis="Glavna poruka, jedna kratka rečenica" /></h1>
+        <Tekst opis="Uvod: tko smo i zašto bi netko došao igrati (2–3 rečenice)" redova={3} />
         <p class="more"><a href="/o-nama/">Kako je počelo →</a></p>
         <div class="actions">
           <a class="btn" href="/liga/">Liga 2027</a>
@@ -37,17 +35,17 @@ const vijesti = (await getCollection('vijesti', ({ data }) => !data.skica))
       <a class="card link-card" href="/liga/">
         <p class="label">Natjecanje</p>
         <h2>Liga 2027</h2>
-        <p>Tjedne liga večeri od siječnja do studenoga i Masters u prosincu. Za članove besplatno.</p>
+        <p><Tekst inline opis="1 rečenica o ligi" /></p>
       </a>
       <a class="card link-card" href="/pravila/">
         <p class="label">Za početnike</p>
         <h2>Pravila igre</h2>
-        <p>Sheme, animacija i video: pravila naučiš za pet minuta. Zlatno pravilo: pogodi protivnika.</p>
+        <p><Tekst inline opis="1 rečenica o pravilima" /></p>
       </a>
       <a class="card link-card" href="/kontakt/">
         <p class="label">Pridruži se</p>
         <h2>Učlani se</h2>
-        <p>Dođi na liga večer, isprobaj igru i postani dio udruge.</p>
+        <p><Tekst inline opis="1 rečenica o učlanjenju" /></p>
       </a>
     </div>
   </section>
@@ -93,6 +91,9 @@ const vijesti = (await getCollection('vijesti', ({ data }) => !data.skica))
     align-items: center; padding-top: var(--space-12); padding-bottom: var(--space-12);
   }
   .hero .label { color: var(--ink); }
+  .hero :global(.tekst) { border-color: rgba(43,31,23,.25); max-width: 52ch; }
+  .hero :global(.tekst-redovi i), .hero :global(.tekst-opis span) { background: rgba(247,240,228,.55); }
+  .display :global(.tekst-inline) { color: rgba(43,31,23,.55); }
   .display { font-size: clamp(36px, 5.5vw, 56px); line-height: 1.07; letter-spacing: -0.03em; font-weight: 800; }
   .lead { font-size: 18px; max-width: 52ch; }
   .more a { color: var(--ink); font-weight: 700; }

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
+import Tekst from '../../components/Tekst.astro';
 
 // Bodovi lige po plasmanu na večeri: 50-47-45-43-41-40, zatim -1 po mjestu, najmanje 20.
 const bodovi = Array.from({ length: 12 }, (_, i) => {
@@ -8,11 +9,10 @@ const bodovi = Array.from({ length: 12 }, (_, i) => {
   return { mjesto: i + 1, bodovi: i < prvih.length ? prvih[i] : Math.max(20, 40 - (i - 5)) };
 });
 ---
-<Base title="Liga 2027" description="Propozicije i poredak crokinole Lige 2027: tjedne liga večeri, bodovanje, parovi i Masters.">
+<Base title="Liga 2027">
   <PageHead
     label="Sezona 2027"
     title="Liga 2027"
-    lead="Tjedne liga večeri od 11. siječnja do 21. studenoga 2027. i završni Masters 4. prosinca."
   />
 
   <div class="container page-body">
@@ -26,44 +26,25 @@ const bodovi = Array.from({ length: 12 }, (_, i) => {
     <section class="join">
       <div>
         <h2>Kako zaigrati?</h2>
-        <p>
-          <strong>Liga je besplatna.</strong> Jedini uvjet je da si član udruge.
-          Ne trebaš imati ploču ni iskustvo — ploče i diskove imamo, a pravila te naučimo na licu mjesta.
-        </p>
+        <Tekst opis="Liga je besplatna, uvjet je članstvo; ploče i diskovi su osigurani (2 rečenice)" redova={2} />
       </div>
       <a class="btn" href="/kontakt/">Učlani se</a>
     </section>
 
     <section id="poredak">
       <h2>Poredak</h2>
-      <div class="note">
-        <p>Poredak lige objavljivat ćemo ovdje nakon svake liga večeri, od siječnja 2027.</p>
-      </div>
+      <Tekst opis="Ovdje dolazi tablica poretka nakon prve liga večeri" redova={2} />
     </section>
 
     <div class="prose">
       <h2>Liga večer</h2>
-      <p>
-        Liga se igra jednom tjedno. Svaka večer je mali turnir za sebe, a format ovisi o tome koliko je igrača došlo:
-      </p>
-      <ul>
-        <li><strong>do 13 igrača</strong> — svatko sa svakim (round robin);</li>
-        <li><strong>14 do 18 igrača</strong> — švicarski sustav, 5 igara (uz 8 ploča, 14–16 igrača može se podijeliti u dvije uravnotežene grupe koje igraju svatko sa svakim);</li>
-        <li><strong>19 i više igrača</strong> — švicarski sustav, 4 igre.</li>
-      </ul>
-      <p>Igra traje 8 minuta, uz 2 minute za završetak započete runde. Igra se prema službenim pravilima NCA.</p>
+      <Tekst opis="Kako izgleda liga večer: učestalost, format prema broju igrača (do 13 / 14–18 / 19+), trajanje igre" redova={5} />
 
       <h3>Izjednačeni rezultati</h3>
-      <p>
-        U formatu svatko sa svakim izjednačenja se rješavaju prema postupku NCA. U švicarskom sustavu redom odlučuju
-        broj dvadesetica, Buchholz i međusobni susret. Za prvo mjesto igra se shoot-out.
-      </p>
+      <Tekst opis="Kako se rješavaju izjednačenja (round robin / švicarski, shoot-out)" redova={2} />
 
       <h2>Bodovi za ligu</h2>
-      <p>
-        Bodovi ovise samo o plasmanu na večeri, a ne o formatu. U sezonski poredak ulazi
-        zbroj <strong>18 najboljih večeri</strong>, pa nije problem ako poneku propustiš.
-      </p>
+      <Tekst opis="Bodovi ovise samo o plasmanu; u poredak ulazi 18 najboljih večeri" redova={2} />
     </div>
 
     <ol class="points" aria-label="Bodovi po plasmanu">
@@ -75,20 +56,13 @@ const bodovi = Array.from({ length: 12 }, (_, i) => {
 
     <div class="prose">
       <h2>Parovi</h2>
-      <p>Tijekom sezone igra se pet posebnih večeri u parovima, s vlastitim poretkom.</p>
+      <Tekst opis="Večeri u parovima (5 večeri, zaseban poredak)" redova={1} />
 
       <h2>Masters</h2>
-      <p>
-        Na Mastersu igra 12 najbolje plasiranih igrača koji su odigrali barem 12 pojedinačnih liga večeri.
-        Igra se svatko sa svakim (11 igara), zatim polufinale (1. – 4. i 2. – 3.) i finale. Polufinale i finale igraju se do 11 bodova.
-      </p>
+      <Tekst opis="Tko se kvalificira i kako se igra Masters" redova={3} />
 
-      <div class="note">
-        <p>
-          <strong>Propozicije su u završnoj fazi.</strong> Dan u tjednu, mjesto igranja i uvjet za Masters
-          još se dogovaraju. Mjerodavna je hrvatska verzija službenih propozicija, koju ćemo objaviti ovdje.
-        </p>
-      </div>
+      <h2>Propozicije</h2>
+      <Tekst opis="Napomena o mjerodavnoj verziji propozicija i poveznica na dokument" redova={2} />
     </div>
   </div>
 </Base>

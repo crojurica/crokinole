@@ -1,0 +1,38 @@
+---
+// Oznaka mjesta za tekst koji tek treba napisati.
+// Kad je tekst gotov, zamijeni cijeli <Tekst ... /> pravim tekstom.
+interface Props {
+  opis: string;      // što ovdje ide (smjernica za pisanje)
+  redova?: number;   // približna duljina, za izgled
+  inline?: boolean;  // kratka oznaka u retku (npr. u naslovu ili kartici)
+}
+const { opis, redova = 3, inline = false } = Astro.props;
+const sirine = [100, 94, 97, 88, 92, 70];
+---
+{inline ? (
+  <span class="tekst-inline" title="Tekst u pripremi">[{opis}]</span>
+) : (
+  <div class="tekst" role="note" aria-label={`Tekst u pripremi: ${opis}`}>
+    <p class="tekst-opis"><span>Tekst</span> {opis}</p>
+    <div class="tekst-redovi" aria-hidden="true">
+      {Array.from({ length: redova }, (_, i) => (
+        <i style={`width:${i === redova - 1 ? 60 : sirine[i % sirine.length]}%`}></i>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .tekst {
+    border: 2px dashed var(--hairline); border-radius: var(--radius-md);
+    padding: var(--space-4); margin: 0 0 var(--space-4);
+  }
+  .tekst-opis { margin: 0 0 var(--space-2); font-size: 14px; color: var(--ink-muted); }
+  .tekst-opis span {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    background: var(--surface-200); color: var(--walnut); padding: 2px 6px; border-radius: var(--radius-sm); margin-right: 4px;
+  }
+  .tekst-redovi { display: grid; gap: 8px; }
+  .tekst-redovi i { display: block; height: 9px; border-radius: 5px; background: var(--surface-200); }
+  .tekst-inline { color: var(--ink-muted); font-style: italic; }
+</style>

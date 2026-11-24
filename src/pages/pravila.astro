@@ -5,15 +5,15 @@ import PlocaOsnova from '../components/PlocaOsnova.astro';
 import Disk from '../components/Disk.astro';
 import Oznaka from '../components/Oznaka.astro';
 import Video from '../components/Video.astro';
+import Tekst from '../components/Tekst.astro';
 
 const NCA_PRAVILA = 'https://nationalcrokinoleassociation.com/wp-content/uploads/2026/05/NCA-Official-Rules-of-Crokinole.docx.pdf';
 const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
 ---
-<Base title="Pravila igre" description="Pravila crokinolea na hrvatskom: sheme ploče, animacija, bodovanje i video. Naučiš za pet minuta.">
+<Base title="Pravila igre">
   <PageHead
     label="Za početnike"
     title="Pravila igre"
-    lead="Pet minuta čitanja, jedna partija i znaš igrati. Ovo je kratki vodič; na natjecanjima vrijede službena pravila NCA."
   />
 
   <div class="container page-body">
@@ -23,16 +23,13 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
       <div class="rule-text">
         <p class="step">1</p>
         <h2>Ploča</h2>
-        <p>
-          Ploča je okrugla, s rupom u sredini i tri kruga oko nje. Što bliže središtu, to više bodova:
-          rupa vrijedi <strong>20</strong>, a zone <strong>15</strong>, <strong>10</strong> i <strong>5</strong>.
-        </p>
+        <Tekst opis="Kako izgleda ploča i koliko vrijedi koja zona" redova={2} />
         <ol class="legend">
-          <li><b>A</b> <span><strong>Kočići</strong> — osam drvenih stupića na liniji 15. Čuvaju središte i odbijaju diskove.</span></li>
-          <li><b>B</b> <span><strong>Linija gađanja</strong> — vanjski krug. S nje kreće svaki tvoj udarac.</span></li>
-          <li><b>C</b> <span><strong>Tvoja četvrtina</strong> — svaki igrač gađa samo iz četvrtine ispred sebe.</span></li>
-          <li><b>D</b> <span><strong>Crte četvrtina</strong> — dijele vanjsku zonu na četiri dijela.</span></li>
-          <li><b>E</b> <span><strong>Jarak</strong> — udubljeni rub. Disk koji završi ovdje izašao je iz igre.</span></li>
+          <li><b>A</b> <span><strong>Kočići</strong> — <Tekst inline opis="kratko objašnjenje" /></span></li>
+          <li><b>B</b> <span><strong>Linija gađanja</strong> — <Tekst inline opis="kratko objašnjenje" /></span></li>
+          <li><b>C</b> <span><strong>Tvoja četvrtina</strong> — <Tekst inline opis="kratko objašnjenje" /></span></li>
+          <li><b>D</b> <span><strong>Crte četvrtina</strong> — <Tekst inline opis="kratko objašnjenje" /></span></li>
+          <li><b>E</b> <span><strong>Jarak</strong> — <Tekst inline opis="kratko objašnjenje" /></span></li>
         </ol>
       </div>
       <figure class="fig">
@@ -59,16 +56,7 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
       <div class="rule-text">
         <p class="step">2</p>
         <h2>Zlatno pravilo: pogodi protivnika</h2>
-        <p>
-          Disk staviš na liniju gađanja u svojoj četvrtini i <strong>odapneš ga prstom</strong> — ne guraš.
-          Igrači gađaju naizmjence.
-        </p>
-        <p>
-          <strong>Ako na ploči ima protivnikovih diskova, moraš pogoditi barem jedan.</strong>{' '}
-          Može izravno, a može i tako da svojim diskom gurneš svoj drugi disk u protivnikov.
-          Idealno: protivnik leti u jarak, a tvoj disk ostaje na ploči.
-        </p>
-        <p class="muted">Promašio? Tvoj disk se skida s ploče i ne donosi bodove.</p>
+        <Tekst opis="Kako se gađa (odapinjanje s linije, naizmjence) i pravilo: ako ima protivnikovih diskova, moraš pogoditi barem jedan; što se događa kod promašaja" redova={6} />
       </div>
       <figure class="fig">
         <svg viewBox="-165 -165 330 330" role="img" aria-labelledby="pogodak-t" class="anim">
@@ -104,11 +92,7 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
       <div class="rule-text">
         <p class="step">3</p>
         <h2>Prazna ploča? Gađaj u petnaesticu</h2>
-        <p>
-          Kad na ploči nema protivnikovih diskova, tvoj disk mora završiti <strong>unutar linije 15 ili je dodirivati</strong>.
-          Ubačena dvadesetica se, naravno, računa. Tako se nitko ne može skrivati na rubu ploče.
-        </p>
-        <p class="muted">Disk koji stane prije linije 15 skida se s ploče.</p>
+        <Tekst opis="Pravilo kad nema protivnikovih diskova: disk mora završiti unutar linije 15 ili je dodirivati" redova={4} />
       </div>
       <div class="pair">
         <figure class="fig small">
@@ -141,10 +125,7 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
       <div class="rule-text">
         <p class="step">4</p>
         <h2>Bodovanje</h2>
-        <p>
-          Dvadesetice se vade iz rupe odmah i čuvaju sa strane. Kad su odigrani svi diskovi, zbroje se
-          bodovi na ploči i dvadesetice. <strong>Disk na liniji vrijedi manji broj</strong> od dvije zone koje dodiruje.
-        </p>
+        <Tekst opis="Kako se broje bodovi: dvadesetice sa strane, disk na liniji vrijedi manje" redova={3} />
         <div class="table-wrap">
           <table>
             <thead><tr><th>Primjer runde</th><th class="num">Ti</th><th class="num">Protivnik</th></tr></thead>
@@ -158,10 +139,7 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
             </tbody>
           </table>
         </div>
-        <p>
-          Rundu dobiva tko ima više: pobjednik runde dobiva <strong>2 boda</strong>, a kod neriješenog svatko po 1.
-          Igra ima <strong>4 runde</strong>.
-        </p>
+        <Tekst opis="Tko dobiva rundu (2 boda / 1 kod neriješenog) i koliko rundi ima igra" redova={2} />
       </div>
       <figure class="fig">
         <svg viewBox="-165 -165 400 330" role="img" aria-labelledby="bod-t">
@@ -200,36 +178,19 @@ const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
     <!-- 5. PARTIJA -->
     <section class="prose">
       <h2>Partija u dvoje i u parovima</h2>
-      <p>
-        U igri jedan na jedan svaki igrač ima <strong>8 diskova</strong> i sjedi nasuprot protivniku.
-        U parovima igraju četiri igrača, svatko sa <strong>6 diskova</strong>, a partneri sjede jedan nasuprot drugome
-        i dijele boju.
-      </p>
-      <p>
-        Dok gađaš, moraš sjediti — stražnjica ostaje na stolici, a ploča se ne pomiče.
-        Zvuči strogo, ali baš to igru čini poštenom.
-      </p>
+      <Tekst opis="Broj diskova (8 u dvoje, 6 u parovima), raspored za stolom, pravilo sjedenja" redova={4} />
     </section>
 
     <!-- VIDEO -->
     <section class="video-sec">
       <div class="prose">
         <h2>Radije gledaš nego čitaš?</h2>
-        <p>
-          Recenzija ekipe Shut Up &amp; Sit Down najbolji je uvod u crokinole koji znamo — zabavna, točna
-          i zarazna. Na engleskom je, ali ploča govori sama za sebe.
-        </p>
+        <Tekst opis="Zašto preporučujemo ovaj video (1–2 rečenice)" redova={2} />
       </div>
       <Video id="XMKzeg78peg" naslov="Review: Crokinole" izvor="Shut Up & Sit Down" jezik="engleski" />
     </section>
 
-    <div class="note">
-      <p>
-        <strong>Ovo je pojednostavljeni vodič.</strong> Mjerodavna su službena pravila{' '}
-        <a href={NCA_PRAVILA} rel="noopener">National Crokinole Associationa (NCA), verzija od 6. 5. 2026.</a>,
-        a za ligu vrijede i <a href="/liga/">propozicije Lige 2027</a>.
-      </p>
-    </div>
+    <Tekst opis="Napomena: mjerodavna su službena NCA pravila (poveznica) i propozicije lige" redova={2} />
   </div>
 </Base>
 

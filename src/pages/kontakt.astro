@@ -1,38 +1,33 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import Tekst from '../components/Tekst.astro';
 import { site } from '../data/site';
 ---
-<Base title="Kontakt i učlanjenje" description="Kontaktiraj udrugu Crokinole Hrvatska ili se učlani.">
-  <PageHead
-    label="Pridruži se"
-    title="Kontakt i učlanjenje"
-    lead="Najlakši početak je doći na liga večer i odigrati koju partiju. Ploče i diskove imamo."
-  />
-  <div class="container page-body two">
-    <section class="card">
-      <h2>Javi nam se</h2>
-      <p>Pitanja o igri, ligi, turnirima ili suradnji šalji na:</p>
-      <p class="email"><a href={`mailto:${site.email}`}>{site.email}</a></p>
-    </section>
+<Base title="Kontakt i učlanjenje">
+  <PageHead label="Pridruži se" title="Kontakt i učlanjenje" />
+  <div class="container page-body">
+    <div class="intro"><Tekst opis="Uvod: kako najlakše doći i probati igru (1–2 rečenice)" redova={2} /></div>
+    <div class="two">
+      <section class="card">
+        <h2>Javi nam se</h2>
+        <Tekst opis="S čime nam se ljudi mogu javiti (1 rečenica)" redova={1} />
+        <p class="email"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      </section>
 
-    <section class="card">
-      <h2>Učlanjenje</h2>
-      <p>Član udruge može postati svatko tko voli crokinole. Članovi u ligi igraju besplatno.</p>
-      <ol>
-        <li>Dođi na liga večer ili nam se javi e-mailom.</li>
-        <li>Ispuni pristupnicu.</li>
-        <li>Dobit ćeš člansku iskaznicu i obavijesti o događanjima.</li>
-      </ol>
-      <p class="muted">Pristupnicu ćemo objaviti ovdje nakon upisa udruge u Registar udruga.</p>
-    </section>
+      <section class="card">
+        <h2>Učlanjenje</h2>
+        <Tekst opis="Tko može postati član, članarina, što članstvo donosi (liga besplatna za članove)" redova={3} />
+        <Tekst opis="Koraci učlanjenja (pristupnica, iskaznica…)" redova={3} />
+      </section>
+    </div>
   </div>
 </Base>
 
 <style>
+  .intro { max-width: 70ch; margin-bottom: var(--space-6); }
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
   .two h2 { margin-top: 0; }
-  .email { font-size: 22px; font-weight: 700; }
-  .muted { color: var(--ink-muted); font-size: 14px; margin: 0; }
+  .email { font-size: 22px; font-weight: 700; margin: 0; }
   @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
 </style>
