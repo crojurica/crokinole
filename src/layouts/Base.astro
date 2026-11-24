@@ -1,0 +1,165 @@
+---
+import '../styles/global.css';
+import { site, navigacija } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.opis } = Astro.props;
+const fullTitle = title ? `${title} · ${site.naziv}` : site.naziv;
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''));
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#f7f0e4" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="hr_HR" />
+  </head>
+  <body>
+    <a class="skip" href="#sadrzaj">Preskoči na sadržaj</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo" aria-label={`${site.naziv}, naslovnica`}>
+          <img src="/img/csh-logo-vodoravni.svg" alt={site.naziv} width="232" height="100" />
+        </a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="glavni-izbornik">
+          <span class="menu-icon" aria-hidden="true"></span>
+          Izbornik
+        </button>
+        <nav id="glavni-izbornik" class="nav" aria-label="Glavni izbornik">
+          <ul>
+            {navigacija.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.naziv}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div class="sahovnica" aria-hidden="true"></div>
+    </header>
+
+    <main id="sadrzaj">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img src="/img/csh-logo-vodoravni-negativ.svg" alt={site.naziv} width="232" height="100" />
+          <p>{site.opis}</p>
+        </div>
+        <nav aria-label="Poveznice u podnožju">
+          <p class="label footer-label">Stranice</p>
+          <ul>
+            {navigacija.slice(1).map((item) => <li><a href={item.href}>{item.naziv}</a></li>)}
+          </ul>
+        </nav>
+        <div>
+          <p class="label footer-label">Kontakt</p>
+          <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <p class="small">Udruga u osnivanju.{site.oib && ` OIB: ${site.oib}`}</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© {new Date().getFullYear()} {site.naziv}</p>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.getElementById('glavni-izbornik');
+      btn?.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('open', !open);
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: var(--surface-100); padding: 8px 16px; z-index: 10;
+  }
+  .skip:focus { left: 16px; top: 16px; }
+
+  .site-header { background: var(--surface-100); }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-6); padding-top: var(--space-4); padding-bottom: var(--space-4);
+  }
+  .logo img { width: 200px; height: auto; margin: -12px 0 -12px -8px; }
+
+  .nav ul { list-style: none; display: flex; gap: var(--space-1); margin: 0; padding: 0; flex-wrap: wrap; }
+  .nav li + li { margin-top: 0; }
+  .nav a {
+    display: block; padding: 8px 12px; border-radius: var(--radius-md);
+    color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+  .nav a:hover { background: var(--surface-200); color: var(--ink); }
+  .nav a[aria-current='page'] { box-shadow: inset 0 -3px 0 var(--red-20); border-radius: 0; }
+
+  .menu-toggle {
+    display: none; align-items: center; gap: 8px;
+    font: inherit; font-weight: 700; color: var(--ink);
+    background: none; border: 2px solid var(--ink); border-radius: var(--radius-md);
+    padding: 8px 14px; cursor: pointer;
+  }
+  .menu-icon, .menu-icon::before, .menu-icon::after {
+    display: block; width: 18px; height: 2px; background: var(--ink); position: relative;
+  }
+  .menu-icon::before, .menu-icon::after { content: ''; position: absolute; left: 0; }
+  .menu-icon::before { top: -6px; }
+  .menu-icon::after { top: 6px; }
+
+  @media (max-width: 960px) {
+    .header-inner { flex-wrap: wrap; }
+    .menu-toggle { display: inline-flex; }
+    .nav { display: none; width: 100%; }
+    .nav.open { display: block; }
+    .nav ul { flex-direction: column; padding-bottom: var(--space-4); }
+    .nav a { padding: 12px 8px; }
+    .nav a[aria-current='page'] { box-shadow: inset 4px 0 0 var(--red-20); padding-left: 16px; }
+    .logo img { width: 170px; }
+  }
+
+  .site-footer { background: var(--ink); color: var(--surface-200); margin-top: var(--space-12); }
+  .footer-inner {
+    display: grid; gap: var(--space-8);
+    grid-template-columns: 2fr 1fr 1fr;
+    padding-top: var(--space-12); padding-bottom: var(--space-8);
+  }
+  .footer-brand img { width: 220px; margin: -12px 0 var(--space-2) -8px; }
+  .footer-brand p { max-width: 40ch; color: #bfae98; }
+  .site-footer a { color: var(--surface-100); }
+  .site-footer a:hover { color: var(--maple); }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer-label { color: var(--maple); margin-bottom: var(--space-4); }
+  .small { font-size: 14px; color: #bfae98; }
+  .footer-bottom {
+    border-top: 1px solid #43362b; padding-top: var(--space-4); padding-bottom: var(--space-6);
+    font-size: 14px; color: #bfae98;
+  }
+  .footer-bottom p { margin: 0; }
+  @media (max-width: 760px) {
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>

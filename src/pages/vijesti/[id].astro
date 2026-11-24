@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { formatDatum } from '../../data/kalendar';
+
+export async function getStaticPaths() {
+  const vijesti = await getCollection('vijesti', ({ data }) => !data.skica);
+  return vijesti.map((v) => ({ params: { id: v.id }, props: { v } }));
+}
+
+const { v } = Astro.props;
+const { Content } = await render(v);
+---
+<Base title={v.data.naslov} description={v.data.sazetak}>
+  <article class="container page-body">
+    <header class="page-head">
+      <p class="label"><a href="/vijesti/">Vijesti</a></p>
+      <h1>{v.data.naslov}</h1>
+      <time datetime={v.data.datum.toISOString()}>{formatDatum(v.data.datum)}</time>
+    </header>
+    <div class="prose body">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .page-head { padding-bottom: var(--space-4); }
+  .label a { color: inherit; text-decoration: none; }
+  time { color: var(--ink-muted); }
+  .body { font-size: 18px; line-height: 1.6; }
+</style>

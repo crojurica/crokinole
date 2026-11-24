@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Kontakt i učlanjenje" description="Kontaktiraj udrugu Crokinole Hrvatska ili se učlani.">
+  <PageHead
+    label="Pridruži se"
+    title="Kontakt i učlanjenje"
+    lead="Najlakši početak je doći na liga večer i odigrati koju partiju. Ploče i diskove imamo."
+  />
+  <div class="container page-body two">
+    <section class="card">
+      <h2>Javi nam se</h2>
+      <p>Pitanja o igri, ligi, turnirima ili suradnji šalji na:</p>
+      <p class="email"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </section>
+
+    <section class="card">
+      <h2>Učlanjenje</h2>
+      <p>Član udruge može postati svatko tko voli crokinole. Za učlanjenje treba ispuniti pristupnicu.</p>
+      <ol>
+        <li>Dođi na liga večer ili nam se javi e-mailom.</li>
+        <li>Ispuni pristupnicu.</li>
+        <li>Dobit ćeš člansku iskaznicu i obavijesti o događanjima.</li>
+      </ol>
+      <p class="muted">Pristupnicu i iznos članarine objavit ćemo nakon upisa udruge u Registar udruga.</p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
+  .two h2 { margin-top: 0; }
+  .email { font-size: 22px; font-weight: 700; }
+  .muted { color: var(--ink-muted); font-size: 14px; margin: 0; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+</style>
