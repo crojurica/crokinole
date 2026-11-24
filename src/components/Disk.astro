@@ -1,0 +1,18 @@
+---
+// Disk na shemi. "ti" = tamni disk, "protivnik" = svijetli disk.
+interface Props {
+  x: number;
+  y: number;
+  boja: 'ti' | 'protivnik';
+  id?: string;
+  opacity?: number;
+}
+const { x, y, boja, id, opacity } = Astro.props;
+const fill = boja === 'ti' ? '#2b1f17' : '#f7f0e4';
+const stroke = boja === 'ti' ? '#2b1f17' : '#6b4429';
+---
+<g id={id} transform={`translate(${x} ${y})`} opacity={opacity}>
+  <circle r="6.4" fill={fill} stroke={stroke} stroke-width="1.4" />
+  <circle r="3.2" fill="none" stroke={boja === 'ti' ? '#6e5a49' : '#d9c7a8'} stroke-width="0.8" />
+  <slot />
+</g>

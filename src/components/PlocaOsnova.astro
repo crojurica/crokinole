@@ -1,0 +1,42 @@
+---
+// Shematska crokinole ploča gledana odozgo, središte u (0,0).
+// Mjerilo: 10 jedinica = 1 inč. Polumjeri prema NCA ploči:
+// rupa 20 ≈ 0,7", linija 15 = 4", linija 10 = 8", vanjska linija (linija gađanja) = 12", rub igrališta = 13".
+interface Props {
+  cetvrtina?: boolean; // istakni donju četvrtinu (mjesto gađanja)
+}
+const { cetvrtina = false } = Astro.props;
+
+const R = { rupa: 7, l15: 40, l10: 80, vanjska: 120, rub: 130, jarak: 146, okvir: 158 };
+const kocici = Array.from({ length: 8 }, (_, k) => {
+  const a = ((22.5 + k * 45) * Math.PI) / 180;
+  return { x: +(R.l15 * Math.cos(a)).toFixed(2), y: +(R.l15 * Math.sin(a)).toFixed(2) };
+});
+const crte = [45, 135, 225, 315].map((deg) => {
+  const a = (deg * Math.PI) / 180;
+  return {
+    x1: +(R.l10 * Math.cos(a)).toFixed(2), y1: +(R.l10 * Math.sin(a)).toFixed(2),
+    x2: +(R.rub * Math.cos(a)).toFixed(2), y2: +(R.rub * Math.sin(a)).toFixed(2),
+  };
+});
+// Donja četvrtina u zoni 5 (između linije 10 i vanjske linije), od 45° do 135° (SVG y raste prema dolje).
+const p = (r: number, deg: number) => {
+  const a = (deg * Math.PI) / 180;
+  return `${(r * Math.cos(a)).toFixed(2)},${(r * Math.sin(a)).toFixed(2)}`;
+};
+const cetvrtinaPath = `M${p(R.l10, 45)} L${p(R.vanjska, 45)} A${R.vanjska},${R.vanjska} 0 0,1 ${p(R.vanjska, 135)} L${p(R.l10, 135)} A${R.l10},${R.l10} 0 0,0 ${p(R.l10, 45)} Z`;
+---
+<g class="ploca-osnova">
+  <circle r={R.okvir} fill="#6b4429" />
+  <circle r={R.jarak} fill="#3d2b1e" />
+  <circle r={R.rub} fill="#e2c08d" />
+  {cetvrtina && <path d={cetvrtinaPath} fill="#6b4429" opacity="0.16" />}
+  <g fill="none" stroke="#6b4429" stroke-width="1.6">
+    <circle r={R.l15} />
+    <circle r={R.l10} />
+    <circle r={R.vanjska} stroke-width="2.2" />
+    {crte.map((c) => <line {...c} />)}
+  </g>
+  {kocici.map((k) => <circle cx={k.x} cy={k.y} r="3.4" fill="#6b4429" />)}
+  <circle r={R.rupa} fill="#2b1f17" />
+</g>

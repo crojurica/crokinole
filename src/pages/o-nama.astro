@@ -2,37 +2,81 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 ---
-<Base title="O nama" description="Crokinole Hrvatska je udruga koja okuplja igrače crokinolea u Hrvatskoj.">
+<Base title="O nama" description="Kako je jedna rođendanska ploča postala udruga i liga: priča o Crokinole Hrvatska.">
   <PageHead
     label="Udruga"
     title="O nama"
-    lead="Crokinole Hrvatska okuplja sve koji vole crokinole — od onih koji su ploču tek ugledali do onih koji ciljaju dvadeseticu iz svakog položaja."
+    lead="Sve je počelo jednom pločom, jednim rođendanom i jednom krivom procjenom."
   />
-  <div class="container page-body prose">
-    <h2>Što je crokinole?</h2>
-    <p>
-      Crokinole je društvena igra spretnosti porijeklom iz Kanade. Igra se na okrugloj drvenoj ploči:
-      igrači prstom odapinju drvene diskove prema središtu, pokušavaju skupiti što više bodova
-      i izbaciti protivnikove diskove s ploče. Pravila se nauče u pet minuta, a igra se uči cijeli život.
-    </p>
+  <div class="container page-body">
+    <div class="story">
+      <blockquote>
+        <p>„To nitko neće htjeti igrati.“</p>
+        <cite>— gotovo svi, kad je stigla prva ploča</cite>
+      </blockquote>
 
-    <h2>Što radimo</h2>
-    <ul>
-      <li>organiziramo tjednu ligu i turnire za pojedince i parove;</li>
-      <li>uvodimo nove igrače u igru i pravila;</li>
-      <li>igramo prema službenim pravilima međunarodne zajednice (NCA) kako bi se naši igrači mogli natjecati i vani;</li>
-      <li>povezujemo igrače, klubove i mjesta na kojima se crokinole igra.</li>
-    </ul>
+      <div class="prose">
+        <h2>Kako je počelo</h2>
+        <p>
+          Prva crokinole ploča stigla je kao poklon za 31. rođendan — gotovo na nagovor, uz dosta sumnje.
+          Okrugla drvena ploča, hrpa diskova i pravila koja stanu na salvetu. „Lijepo izgleda,
+          ali to nitko neće htjeti igrati“, govorilo se.
+        </p>
+        <p>
+          Nije prošlo dugo, a ploča je izlazila na svakom druženju. Partija za zagrijavanje pretvorila se
+          u „još samo jednu“, a „još samo jedna“ u turnir do ponoći.
+        </p>
+        <p>
+          Onda je i jedan poznanik za rođendan dobio ploču. Dvije ploče znače dva stola, dva stola znače
+          pravi turnir — i tu se rodila ideja: osnovati udrugu i pokrenuti službenu ligu.
+          I eto nas tu.
+        </p>
+      </div>
+    </div>
 
-    <h2>Naš znak</h2>
-    <p>
-      Znak udruge je crokinole ploča gledana odozgo. Gornja polovica je javorova ploča sa zonama i kočićima,
-      donja polovica je šahovnica, a rupa od 20 bodova sjedi točno na liniji gdje se igra i Hrvatska susreću.
-    </p>
+    <div class="prose">
+      <h2>Što je crokinole?</h2>
+      <p>
+        Crokinole je društvena igra spretnosti iz Kanade, stara više od 150 godina. Igra se na okrugloj drvenoj ploči:
+        prstom odapinješ drvene diskove prema središtu, skupljaš bodove i izbacuješ protivnikove diskove s ploče.
+        Pravila naučiš u pet minuta, a igru učiš cijeli život. Pogledaj <a href="/pravila/">kako se igra</a>.
+      </p>
 
-    <div class="note">
-      <p><strong>Udruga je u osnivanju.</strong> Statut, tijela udruge i podaci za upis u Registar udruga
-      bit će objavljeni ovdje nakon osnivačke skupštine i upisa.</p>
+      <h2>Što radimo</h2>
+      <ul>
+        <li>vodimo tjednu ligu i organiziramo turnire za pojedince i parove;</li>
+        <li>uvodimo nove igrače u igru — ploče i diskove imamo, ti samo dođi;</li>
+        <li>igramo po službenim pravilima međunarodne zajednice (NCA), da se naši igrači mogu natjecati i vani;</li>
+        <li>skupljamo sve koji u Hrvatskoj imaju ploču u ormaru i traže s kim igrati.</li>
+      </ul>
+
+      <h2>Naš znak</h2>
+      <p>
+        Znak udruge je crokinole ploča gledana odozgo. Gornja polovica je javorova ploča sa zonama i kočićima,
+        donja je šahovnica, a rupa od 20 bodova sjedi točno na liniji gdje se igra i Hrvatska susreću.
+      </p>
+
+      <div class="note">
+        <p><strong>Udruga je u osnivanju.</strong> Statut, tijela udruge i podaci o upisu u Registar udruga
+        bit će ovdje objavljeni nakon osnivačke skupštine i upisa.</p>
+      </div>
     </div>
   </div>
 </Base>
+
+<style>
+  .story {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--space-12);
+    align-items: start; margin-bottom: var(--space-8);
+  }
+  .story .prose h2 { margin-top: 0; }
+  blockquote {
+    margin: 0; background: var(--maple); border-radius: var(--radius-lg);
+    padding: var(--space-8); position: relative;
+  }
+  blockquote p {
+    font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 var(--space-4);
+  }
+  blockquote cite { font-style: normal; color: var(--ink); font-size: 15px; }
+  @media (max-width: 760px) { .story { grid-template-columns: 1fr; gap: var(--space-6); } }
+</style>

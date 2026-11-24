@@ -1,70 +1,289 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import PlocaOsnova from '../components/PlocaOsnova.astro';
+import Disk from '../components/Disk.astro';
+import Oznaka from '../components/Oznaka.astro';
+import Video from '../components/Video.astro';
+
+const NCA_PRAVILA = 'https://nationalcrokinoleassociation.com/wp-content/uploads/2026/05/NCA-Official-Rules-of-Crokinole.docx.pdf';
+const spline = '0 0 1 1; 0.15 0.7 0.35 1; 0 0 1 1';
 ---
-<Base title="Pravila igre" description="Kratka pravila crokinolea za početnike i poveznica na službena NCA pravila.">
+<Base title="Pravila igre" description="Pravila crokinolea na hrvatskom: sheme ploče, animacija, bodovanje i video. Naučiš za pet minuta.">
   <PageHead
     label="Za početnike"
     title="Pravila igre"
-    lead="Kratki pregled za prvu partiju. Na natjecanjima udruge vrijede službena pravila NCA."
+    lead="Pet minuta čitanja, jedna partija i znaš igrati. Ovo je kratki vodič; na natjecanjima vrijede službena pravila NCA."
   />
+
   <div class="container page-body">
-    <div class="zones" aria-label="Bodovne zone">
-      <div class="zone"><span class="score">20</span><span>rupa u sredini</span></div>
-      <div class="zone"><span class="score">15</span><span>unutarnji krug</span></div>
-      <div class="zone"><span class="score">10</span><span>srednji krug</span></div>
-      <div class="zone"><span class="score">5</span><span>vanjski krug</span></div>
-    </div>
 
-    <div class="prose">
-      <h2>Ploča i diskovi</h2>
-      <p>
-        Ploča je okrugla i podijeljena na zone koje vrijede 5, 10 i 15 bodova, a u samom središtu je rupa
-        koja vrijedi 20. Oko unutarnjeg kruga stoji osam kočića koji štite središte. Igra se u dvoje ili u parovima,
-        a svaki igrač ima svoje diskove u jednoj boji.
-      </p>
-
-      <h2>Kako se gađa</h2>
-      <p>
-        Disk se postavlja na rub ploče u svojoj četvrtini i odapinje prstom — ne gura se. Igrači gađaju naizmjence.
-        Disk koji upadne u rupu odmah se vadi i broji kao 20 bodova.
-      </p>
-
-      <h2>Zlatno pravilo</h2>
-      <p>
-        <strong>Ako na ploči ima protivnikovih diskova, moraš pogoditi barem jedan od njih.</strong>{' '}
-        Ako ih nema, tvoj disk mora završiti u zoni od 15 bodova (unutar linije ili na njoj). Disk koji ne ispuni pravilo skida se s ploče.
-      </p>
-
-      <h2>Bodovanje</h2>
-      <p>
-        Kad su odigrani svi diskovi, zbrajaju se bodovi diskova na ploči i ubačenih dvadesetica.
-        Rundu dobiva onaj tko ima više bodova. Koliko se rundi igra i kako se one pretvaraju u rezultat igre,
-        određuju pravila natjecanja.
-      </p>
-
-      <div class="note">
+    <!-- 1. PLOČA -->
+    <section class="rule">
+      <div class="rule-text">
+        <p class="step">1</p>
+        <h2>Ploča</h2>
         <p>
-          <strong>Ovo je pojednostavljeni sažetak.</strong> Mjerodavna su službena pravila{' '}
-          <a href="https://nationalcrokinoleassociation.com/wp-content/uploads/2026/05/NCA-Official-Rules-of-Crokinole.docx.pdf" rel="noopener">National Crokinole Associationa (NCA, verzija od 6. 5. 2026.)</a>,
-          a za ligu vrijede i <a href="/liga/">propozicije Lige 2027</a>.
-          Hrvatski prijevod službenih pravila je u pripremi.
+          Ploča je okrugla, s rupom u sredini i tri kruga oko nje. Što bliže središtu, to više bodova:
+          rupa vrijedi <strong>20</strong>, a zone <strong>15</strong>, <strong>10</strong> i <strong>5</strong>.
+        </p>
+        <ol class="legend">
+          <li><b>A</b> <span><strong>Kočići</strong> — osam drvenih stupića na liniji 15. Čuvaju središte i odbijaju diskove.</span></li>
+          <li><b>B</b> <span><strong>Linija gađanja</strong> — vanjski krug. S nje kreće svaki tvoj udarac.</span></li>
+          <li><b>C</b> <span><strong>Tvoja četvrtina</strong> — svaki igrač gađa samo iz četvrtine ispred sebe.</span></li>
+          <li><b>D</b> <span><strong>Crte četvrtina</strong> — dijele vanjsku zonu na četiri dijela.</span></li>
+          <li><b>E</b> <span><strong>Jarak</strong> — udubljeni rub. Disk koji završi ovdje izašao je iz igre.</span></li>
+        </ol>
+      </div>
+      <figure class="fig">
+        <svg viewBox="-165 -165 330 330" role="img" aria-labelledby="ploca-t">
+          <title id="ploca-t">Shema crokinole ploče odozgo s označenim zonama, kočićima, linijom gađanja, četvrtinom i jarkom</title>
+          <PlocaOsnova cetvrtina />
+          <g class="zone-num" font-weight="800" fill="#6b4429" text-anchor="middle">
+            <text x="0" y="-21" font-size="13">15</text>
+            <text x="0" y="-55" font-size="15">10</text>
+            <text x="0" y="-95" font-size="17">5</text>
+            <text x="0" y="22" font-size="12" fill="#2b1f17">20</text>
+          </g>
+          <Oznaka x={52} y={-24} t="A" />
+          <Oznaka x={-113} y={41} t="B" />
+          <Oznaka x={0} y={100} t="C" />
+          <Oznaka x={74} y={74} t="D" />
+          <Oznaka x={-98} y={-98} t="E" />
+        </svg>
+      </figure>
+    </section>
+
+    <!-- 2. GAĐANJE + ANIMACIJA -->
+    <section class="rule">
+      <div class="rule-text">
+        <p class="step">2</p>
+        <h2>Zlatno pravilo: pogodi protivnika</h2>
+        <p>
+          Disk staviš na liniju gađanja u svojoj četvrtini i <strong>odapneš ga prstom</strong> — ne guraš.
+          Igrači gađaju naizmjence.
+        </p>
+        <p>
+          <strong>Ako na ploči ima protivnikovih diskova, moraš pogoditi barem jedan.</strong>{' '}
+          Može izravno, a može i tako da svojim diskom gurneš svoj drugi disk u protivnikov.
+          Idealno: protivnik leti u jarak, a tvoj disk ostaje na ploči.
+        </p>
+        <p class="muted">Promašio? Tvoj disk se skida s ploče i ne donosi bodove.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="-165 -165 330 330" role="img" aria-labelledby="pogodak-t" class="anim">
+          <title id="pogodak-t">Animacija: tamni disk s linije gađanja pogađa svijetli protivnikov disk i izbacuje ga u jarak</title>
+          <PlocaOsnova cetvrtina />
+          <line x1="60" y1="94" x2="60" y2="-20" stroke="#24467a" stroke-width="2" stroke-dasharray="4 5" stroke-linecap="round">
+            <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.16;0.3;0.92;1" dur="5s" repeatCount="indefinite" />
+          </line>
+          <Disk x={-70} y={20} boja="ti" />
+          <Disk x={-30} y={-62} boja="protivnik" />
+          <Disk x={60} y={-40} boja="protivnik">
+            <animateTransform attributeName="transform" type="translate"
+              values="60 -40; 60 -40; 60 -124; 60 -124" keyTimes="0;0.36;0.5;1"
+              calcMode="spline" keySplines={spline} dur="5s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="1;1;0.55;0.55;0;1" keyTimes="0;0.4;0.5;0.9;0.95;1" dur="5s" repeatCount="indefinite" />
+          </Disk>
+          <Disk x={60} y={101.6} boja="ti">
+            <animateTransform attributeName="transform" type="translate"
+              values="60 101.6; 60 101.6; 60 -27.2; 60 -27.2" keyTimes="0;0.16;0.36;1"
+              calcMode="spline" keySplines={spline} dur="5s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="1;1;0;1" keyTimes="0;0.9;0.95;1" dur="5s" repeatCount="indefinite" />
+          </Disk>
+        </svg>
+        <figcaption class="key">
+          <span><i class="dot ti"></i> tvoji diskovi</span>
+          <span><i class="dot protivnik"></i> protivnikovi diskovi</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 3. PRAZNA PLOČA -->
+    <section class="rule">
+      <div class="rule-text">
+        <p class="step">3</p>
+        <h2>Prazna ploča? Gađaj u petnaesticu</h2>
+        <p>
+          Kad na ploči nema protivnikovih diskova, tvoj disk mora završiti <strong>unutar linije 15 ili je dodirivati</strong>.
+          Ubačena dvadesetica se, naravno, računa. Tako se nitko ne može skrivati na rubu ploče.
+        </p>
+        <p class="muted">Disk koji stane prije linije 15 skida se s ploče.</p>
+      </div>
+      <div class="pair">
+        <figure class="fig small">
+          <svg viewBox="-165 -165 330 330" role="img" aria-labelledby="ok-t">
+            <title id="ok-t">Ispravno: disk je stao unutar linije 15</title>
+            <PlocaOsnova />
+            <circle r="40" fill="#24467a" opacity="0.12" />
+            <Disk x={5} y={-24} boja="ti" />
+          </svg>
+          <figcaption><span class="ok">✓</span> Unutar linije 15 — disk ostaje.</figcaption>
+        </figure>
+        <figure class="fig small">
+          <svg viewBox="-165 -165 330 330" role="img" aria-labelledby="ne-t">
+            <title id="ne-t">Neispravno: disk je stao u zoni 10, izvan linije 15</title>
+            <PlocaOsnova />
+            <circle r="40" fill="#24467a" opacity="0.12" />
+            <Disk x={-22} y={-60} boja="ti" opacity={0.45} />
+            <g stroke="#b23a2e" stroke-width="3" stroke-linecap="round">
+              <line x1="-31" y1="-69" x2="-13" y2="-51" />
+              <line x1="-13" y1="-69" x2="-31" y2="-51" />
+            </g>
+          </svg>
+          <figcaption><span class="no">✗</span> Stao je prerano — skida se s ploče.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 4. BODOVANJE -->
+    <section class="rule">
+      <div class="rule-text">
+        <p class="step">4</p>
+        <h2>Bodovanje</h2>
+        <p>
+          Dvadesetice se vade iz rupe odmah i čuvaju sa strane. Kad su odigrani svi diskovi, zbroje se
+          bodovi na ploči i dvadesetice. <strong>Disk na liniji vrijedi manji broj</strong> od dvije zone koje dodiruje.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Primjer runde</th><th class="num">Ti</th><th class="num">Protivnik</th></tr></thead>
+            <tbody>
+              <tr><td>Dvadesetice sa strane</td><td class="num">20</td><td class="num">—</td></tr>
+              <tr><td>Zona 15</td><td class="num">15</td><td class="num">15</td></tr>
+              <tr><td>Zona 10</td><td class="num">10</td><td class="num">—</td></tr>
+              <tr><td>Zona 5</td><td class="num">5</td><td class="num">5 + 5</td></tr>
+              <tr><td>Disk na liniji 10/5 (vrijedi 5)</td><td class="num">5</td><td class="num">—</td></tr>
+              <tr class="total"><td>Ukupno</td><td class="num">55</td><td class="num">25</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Rundu dobiva tko ima više: pobjednik runde dobiva <strong>2 boda</strong>, a kod neriješenog svatko po 1.
+          Igra ima <strong>4 runde</strong>.
         </p>
       </div>
+      <figure class="fig">
+        <svg viewBox="-165 -165 400 330" role="img" aria-labelledby="bod-t">
+          <title id="bod-t">Primjer runde: tamni diskovi vrijede 20, 15, 10, 5 i 5 (disk na liniji), svijetli 15, 5 i 5</title>
+          <PlocaOsnova />
+          <Disk x={10} y={-21} boja="ti" />
+          <Disk x={-50} y={30} boja="ti" />
+          <Disk x={0} y={100} boja="ti" />
+          <Disk x={69.3} y={-40} boja="ti" />
+          <Disk x={-20} y={20} boja="protivnik" />
+          <Disk x={90} y={40} boja="protivnik" />
+          <Disk x={-95} y={-30} boja="protivnik" />
+          <g font-size="10" font-weight="800" text-anchor="middle" fill="#2b1f17">
+            <text x="10" y="-31">15</text>
+            <text x="-50" y="20">10</text>
+            <text x="0" y="90">5</text>
+            <text x="84" y="-46">5</text>
+            <text x="-20" y="10">15</text>
+            <text x="90" y="30">5</text>
+            <text x="-95" y="-40">5</text>
+          </g>
+          <g transform="translate(200 -120)">
+            <text y="-14" text-anchor="middle" font-size="10" font-weight="700" fill="#6e5a49">sa strane</text>
+            <Disk x={0} y={0} boja="ti" />
+            <text y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#b23a2e">20</text>
+          </g>
+        </svg>
+        <figcaption class="key">
+          <span><i class="dot ti"></i> ti: 55</span>
+          <span><i class="dot protivnik"></i> protivnik: 25</span>
+          <span>→ runda je tvoja, 2 boda</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 5. PARTIJA -->
+    <section class="prose">
+      <h2>Partija u dvoje i u parovima</h2>
+      <p>
+        U igri jedan na jedan svaki igrač ima <strong>8 diskova</strong> i sjedi nasuprot protivniku.
+        U parovima igraju četiri igrača, svatko sa <strong>6 diskova</strong>, a partneri sjede jedan nasuprot drugome
+        i dijele boju.
+      </p>
+      <p>
+        Dok gađaš, moraš sjediti — stražnjica ostaje na stolici, a ploča se ne pomiče.
+        Zvuči strogo, ali baš to igru čini poštenom.
+      </p>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="video-sec">
+      <div class="prose">
+        <h2>Radije gledaš nego čitaš?</h2>
+        <p>
+          Recenzija ekipe Shut Up &amp; Sit Down najbolji je uvod u crokinole koji znamo — zabavna, točna
+          i zarazna. Na engleskom je, ali ploča govori sama za sebe.
+        </p>
+      </div>
+      <Video id="XMKzeg78peg" naslov="Review: Crokinole" izvor="Shut Up & Sit Down" jezik="engleski" />
+    </section>
+
+    <div class="note">
+      <p>
+        <strong>Ovo je pojednostavljeni vodič.</strong> Mjerodavna su službena pravila{' '}
+        <a href={NCA_PRAVILA} rel="noopener">National Crokinole Associationa (NCA), verzija od 6. 5. 2026.</a>,
+        a za ligu vrijede i <a href="/liga/">propozicije Lige 2027</a>.
+      </p>
     </div>
   </div>
 </Base>
 
 <style>
-  .zones {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);
-    margin-bottom: var(--space-8); max-width: 760px;
+  .rule {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12);
+    align-items: center; padding: var(--space-8) 0; border-top: 1px solid var(--hairline);
   }
-  .zone {
-    background: var(--surface-200); border-radius: var(--radius-md); padding: var(--space-4);
-    display: flex; flex-direction: column; gap: var(--space-1); color: var(--ink-muted); font-size: 14px;
+  .rule:first-child { border-top: 0; padding-top: 0; }
+  .rule-text h2 { margin-top: 0; }
+  .step {
+    width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--ink); color: var(--surface-100);
+    display: grid; place-items: center; font-weight: 800; font-size: 18px; margin-bottom: var(--space-4);
   }
-  .zone .score { color: var(--ink); }
-  .zone:first-child .score { color: var(--red-20); }
-  @media (max-width: 560px) { .zones { grid-template-columns: repeat(2, 1fr); } }
+  .muted { color: var(--ink-muted); }
+
+  .fig { margin: 0; }
+  .fig svg { width: 100%; max-width: 440px; margin: 0 auto; font-family: var(--font); }
+  .fig figcaption { text-align: center; margin-top: var(--space-2); font-size: 15px; }
+  .key { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); justify-content: center; color: var(--ink-muted); }
+  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: -2px; margin-right: 4px; }
+  .dot.ti { background: #2b1f17; }
+  .dot.protivnik { background: #f7f0e4; box-shadow: inset 0 0 0 2px #6b4429; }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .ok { color: var(--blue-hr); font-weight: 800; }
+  .no { color: var(--red-20); font-weight: 800; }
+
+  .legend { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .legend li { display: grid; grid-template-columns: 26px 1fr; gap: var(--space-2); margin: 0; align-items: start; }
+  .legend b {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--blue-hr); color: var(--surface-100);
+    font-size: 12px; display: grid; place-items: center; margin-top: 1px;
+  }
+
+  .num { text-align: right; white-space: nowrap; }
+  .total td { font-weight: 800; border-bottom: 0; }
+  .rule .table-wrap { margin-bottom: var(--space-4); }
+
+  .video-sec {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--space-12);
+    align-items: center; padding: var(--space-8) 0 var(--space-12);
+  }
+  .video-sec h2 { margin-top: 0; }
+
+  @media (max-width: 860px) {
+    .rule, .video-sec { grid-template-columns: 1fr; gap: var(--space-6); }
+  }
+  @media (max-width: 480px) { .pair { grid-template-columns: 1fr; } }
 </style>
+
+<script>
+  // Poštuj postavku "smanji pokrete": zaustavi animaciju.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<SVGSVGElement>('svg.anim').forEach((s) => s.pauseAnimations());
+  }
+</script>
