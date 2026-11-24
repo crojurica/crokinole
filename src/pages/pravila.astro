@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Pravila igre" description="Kratka pravila crokinolea za početnike i poveznica na službena NCA pravila.">
+  <PageHead
+    label="Za početnike"
+    title="Pravila igre"
+    lead="Kratki pregled za prvu partiju. Na natjecanjima udruge vrijede službena pravila NCA."
+  />
+  <div class="container page-body">
+    <div class="zones" aria-label="Bodovne zone">
+      <div class="zone"><span class="score">20</span><span>rupa u sredini</span></div>
+      <div class="zone"><span class="score">15</span><span>unutarnji krug</span></div>
+      <div class="zone"><span class="score">10</span><span>srednji krug</span></div>
+      <div class="zone"><span class="score">5</span><span>vanjski krug</span></div>
+    </div>
+
+    <div class="prose">
+      <h2>Ploča i diskovi</h2>
+      <p>
+        Ploča je okrugla i podijeljena na zone koje vrijede 5, 10 i 15 bodova, a u samom središtu je rupa
+        koja vrijedi 20. Oko unutarnjeg kruga stoji osam kočića koji štite središte. Igra se u dvoje ili u parovima,
+        a svaki igrač ima svoje diskove u jednoj boji.
+      </p>
+
+      <h2>Kako se gađa</h2>
+      <p>
+        Disk se postavlja na rub ploče u svojoj četvrtini i odapinje prstom — ne gura se. Igrači gađaju naizmjence.
+        Disk koji upadne u rupu odmah se vadi i broji kao 20 bodova.
+      </p>
+
+      <h2>Zlatno pravilo</h2>
+      <p>
+        <strong>Ako na ploči ima protivnikovih diskova, moraš pogoditi barem jedan od njih.</strong>{' '}
+        Ako ih nema, tvoj disk mora završiti u zoni od 15 bodova (unutar linije ili na njoj). Disk koji ne ispuni pravilo skida se s ploče.
+      </p>
+
+      <h2>Bodovanje</h2>
+      <p>
+        Kad su odigrani svi diskovi, zbrajaju se bodovi diskova na ploči i ubačenih dvadesetica.
+        Rundu dobiva onaj tko ima više bodova. Koliko se rundi igra i kako se one pretvaraju u rezultat igre,
+        određuju pravila natjecanja.
+      </p>
+
+      <div class="note">
+        <p>
+          <strong>Ovo je pojednostavljeni sažetak.</strong> Mjerodavna su službena pravila{' '}
+          <a href="https://nationalcrokinoleassociation.com/wp-content/uploads/2026/05/NCA-Official-Rules-of-Crokinole.docx.pdf" rel="noopener">National Crokinole Associationa (NCA, verzija od 6. 5. 2026.)</a>,
+          a za ligu vrijede i <a href="/liga/">propozicije Lige 2027</a>.
+          Hrvatski prijevod službenih pravila je u pripremi.
+        </p>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .zones {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);
+    margin-bottom: var(--space-8); max-width: 760px;
+  }
+  .zone {
+    background: var(--surface-200); border-radius: var(--radius-md); padding: var(--space-4);
+    display: flex; flex-direction: column; gap: var(--space-1); color: var(--ink-muted); font-size: 14px;
+  }
+  .zone .score { color: var(--ink); }
+  .zone:first-child .score { color: var(--red-20); }
+  @media (max-width: 560px) { .zones { grid-template-columns: repeat(2, 1fr); } }
+</style>

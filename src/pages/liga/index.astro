@@ -1,0 +1,105 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+// Bodovi lige po plasmanu na večeri: 50-47-45-43-41-40, zatim -1 po mjestu, najmanje 20.
+const bodovi = Array.from({ length: 12 }, (_, i) => {
+  const prvih = [50, 47, 45, 43, 41, 40];
+  return { mjesto: i + 1, bodovi: i < prvih.length ? prvih[i] : Math.max(20, 40 - (i - 5)) };
+});
+---
+<Base title="Liga 2027" description="Propozicije i poredak crokinole Lige 2027: tjedne liga večeri, bodovanje, parovi i Masters.">
+  <PageHead
+    label="Sezona 2027"
+    title="Liga 2027"
+    lead="Tjedne liga večeri od 11. siječnja do 21. studenoga 2027. i završni Masters 4. prosinca."
+  />
+
+  <div class="container page-body">
+    <div class="facts">
+      <div class="card"><p class="label">Početak</p><p class="fact">11. 1. 2027.</p></div>
+      <div class="card"><p class="label">Ljetna stanka</p><p class="fact">19. 7. – 22. 8.</p></div>
+      <div class="card"><p class="label">Kraj sezone</p><p class="fact">21. 11. 2027.</p></div>
+      <div class="card accent"><p class="label">Masters</p><p class="fact">4. 12. 2027.</p></div>
+    </div>
+
+    <section id="poredak">
+      <h2>Poredak</h2>
+      <div class="note">
+        <p>Poredak lige objavljivat ćemo ovdje nakon svake liga večeri, od siječnja 2027.</p>
+      </div>
+    </section>
+
+    <div class="prose">
+      <h2>Liga večer</h2>
+      <p>
+        Liga se igra jednom tjedno. Svaka večer je mali turnir za sebe, a format ovisi o tome koliko je igrača došlo:
+      </p>
+      <ul>
+        <li><strong>do 13 igrača</strong> — svatko sa svakim (round robin);</li>
+        <li><strong>14 do 18 igrača</strong> — švicarski sustav, 5 igara (uz 8 ploča, 14–16 igrača može se podijeliti u dvije uravnotežene grupe koje igraju svatko sa svakim);</li>
+        <li><strong>19 i više igrača</strong> — švicarski sustav, 4 igre.</li>
+      </ul>
+      <p>Igra traje 8 minuta, uz 2 minute za završetak započete runde. Igra se prema službenim pravilima NCA.</p>
+
+      <h3>Izjednačeni rezultati</h3>
+      <p>
+        U formatu svatko sa svakim izjednačenja se rješavaju prema postupku NCA. U švicarskom sustavu redom odlučuju
+        broj dvadesetica, Buchholz i međusobni susret. Za prvo mjesto igra se shoot-out.
+      </p>
+
+      <h2>Bodovi za ligu</h2>
+      <p>
+        Bodovi ovise samo o plasmanu na večeri, a ne o formatu. U sezonski poredak ulazi
+        zbroj <strong>18 najboljih večeri</strong>, pa nije problem ako poneku propustiš.
+      </p>
+    </div>
+
+    <ol class="points" aria-label="Bodovi po plasmanu">
+      {bodovi.map((b) => (
+        <li><span class="place">{b.mjesto}.</span><span class="pts">{b.bodovi}</span></li>
+      ))}
+    </ol>
+    <p class="muted">i dalje po 1 bod manje za svako sljedeće mjesto, najmanje 20 bodova</p>
+
+    <div class="prose">
+      <h2>Parovi</h2>
+      <p>Tijekom sezone igra se pet posebnih večeri u parovima, s vlastitim poretkom.</p>
+
+      <h2>Masters</h2>
+      <p>
+        Na Mastersu igra 12 najbolje plasiranih igrača koji su odigrali barem 12 pojedinačnih liga večeri.
+        Igra se svatko sa svakim (11 igara), zatim polufinale (1. – 4. i 2. – 3.) i finale. Polufinale i finale igraju se do 11 bodova.
+      </p>
+
+      <div class="note">
+        <p>
+          <strong>Propozicije su u završnoj fazi.</strong> Dan u tjednu, mjesto igranja, kotizacija i uvjet za Masters
+          još se dogovaraju. Mjerodavna je hrvatska verzija službenih propozicija, koju ćemo objaviti ovdje.
+        </p>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-8); }
+  .facts .card { padding: var(--space-4) var(--space-6); }
+  .facts .label { margin-bottom: var(--space-2); }
+  .fact { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+  .accent { box-shadow: inset 0 -4px 0 var(--red-20); }
+  @media (max-width: 760px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+  .points {
+    list-style: none; padding: 0; margin: 0 0 var(--space-2); max-width: 820px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-2);
+  }
+  .points li {
+    margin: 0; background: var(--surface-200); border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-4); display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .points li:first-child { box-shadow: inset 0 -3px 0 var(--red-20); }
+  .place { color: var(--ink-muted); font-size: 14px; }
+  .pts { font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .points { grid-template-columns: repeat(3, 1fr); } }
+  .muted { color: var(--ink-muted); font-size: 14px; }
+</style>
